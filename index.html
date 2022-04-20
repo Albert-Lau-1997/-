@@ -1,0 +1,248 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>Amaze UI Examples</title>
+
+  <!-- Set render engine for 360 browser -->
+  <meta name="renderer" content="webkit">
+
+  <!-- No Baidu Siteapp-->
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+
+  <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+  <!--
+  <link rel="canonical" href="http://www.example.com/">
+  -->
+
+  <link rel="stylesheet" href="assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div class="am-g" id="app">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+
+    <form class="am-form">
+      <fieldset>
+        <legend>混凝土位移系数及反力系数</legend>
+
+        <div class="am-form-group">
+          <label for="Hu">Hu</label>
+          <input type="number" class="" id="Hu" v-model="Hu" placeholder="输入Hu">
+        </div>
+        <div class="am-form-group">
+          <label for="H">H</label>
+          <input type="number" id="H" v-model="H" placeholder="输入H">
+        </div>
+        <div class="am-form-group">
+          <label for="Iu">Iu</label>
+          <input type="number" id="Iu" v-model="Iu" placeholder="输入Iu">
+        </div>
+        <div class="am-form-group">
+          <label for="Il">Il</label>
+          <input type="number" id="Il" v-model="Il" placeholder="输入Il">
+        </div>
+        <div class="am-form-group">
+          <label for="Hl">Hl</label>
+          <input type="number" id="Hl" v-model="Hl" placeholder="输入Hl">
+        </div>
+        <div class="am-form-group">
+          <label for="jd">ꭤ</label>
+          <input type="number" id="jd" v-model="jd" placeholder="输入ꭤ">
+        </div>
+        <div class="am-form-group">
+          <label for="b">b</label>
+          <input type="number" id="b" v-model="b" placeholder="输入b">
+        </div>
+        <div class="am-form-group">
+          <label class="am-checkbox-inline">
+            <input type="checkbox" value="C1" v-model="checkName" checked> C1
+          </label>
+          <label class="am-checkbox">
+            <input type="checkbox" value="C2" v-model="checkName" checked> C2
+          </label>
+          <label class="am-checkbox">
+            <input type="checkbox" value="C3" v-model="checkName" checked> C3
+          </label>
+          <label class="am-checkbox">
+            <input type="checkbox" value="C4" v-model="checkName" checked> C4
+          </label>
+          <label class="am-checkbox">
+            <input type="checkbox" value="C5" v-model="checkName" checked> C5
+          </label>
+          <label class="am-checkbox">
+            <input type="checkbox" value="C6" v-model="checkName" checked> C6
+          </label>
+          <label class="am-checkbox">
+            <input type="checkbox" value="C7" v-model="checkName" checked> C7
+          </label>
+          <label class="am-checkbox">
+            <input type="checkbox" value="C8" v-model="checkName" checked> C8
+          </label>
+          <label class="am-checkbox">
+            <input type="checkbox" value="C9" v-model="checkName" checked> C9
+          </label>
+        </div>
+
+
+
+
+
+      </fieldset>
+    </form>
+
+  </div>
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+    <table class="am-table">
+      <thead>
+      <tr>
+        <th>序号</th>
+        <th>R</th>
+        <th>C值</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr v-for="item in result">
+        <td>{{item.id}}</td>
+        <td>{{item.R}}</td>
+        <td>{{item.C}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+
+<script>
+  const formula={
+    C1: (v, n, jd, b) => 1.5 * (1 - v * v * (1 - 1 / n)) / (1 + v * v * v * (1 / n - 1)),
+    C2: (v, n, jd, b) => 1.5 * (1 - v * v * ((1 - jd * jd) / n - 1)) / (1 + v * v * v * (1 / n - 1)),
+    C3: (v, n, jd, b) => 1.5 * (1 - v * v) / (1 + v * v * v * (1 / n - 1)),
+    C4: (v, n, jd, b) => 1.5 * (2 * b * (1 - v) - b * b * (1 - v) * (1 - v)) / (1 + Math.pow(v, 3) * (1 / n - 1)),
+    C5: (v, n, jd, b) => (2 - 3 * jd * v + Math.pow(v, 3) * ((2 + jd) * (1 - jd) * (1 - jd) / n - (2 - 3 * jd))) / (2 * (1 + Math.pow(v, 3) * (1 / n - 1))),
+    C6: (v, n, jd, b) => b * b * (1 - v) * (1 - v) * (3 - b * (1 - v)) / (2 * (1 + Math.pow(v, 3) * (1 / n - 1))),
+    C7: (v, n, jd, b) => (Math.pow(jd * v, 4) / n - (1 / n - 1) * (6 * jd - 8) * jd * Math.pow(v, 4) - jd * v * (6 * jd * v - 8)) / (8 * (1 + Math.pow(v, 3) * (1 / n - 1))),
+    C8: (v, n, jd, b) => (3 - Math.pow(b * (1 - v), 3) * (4 - b * (1 - v) + 3 * Math.pow(v, 4) * (1 / n - 1))) / (8 * (1 + Math.pow(v, 3) * (1 / n - 1))),
+    C9: (v, n, jd, b) => 3 * (1 + Math.pow(v, 4) * (1 / n - 1)) / (8 * (1 + Math.pow(v, 3) * (1 / n - 1)))
+  }
+  let app = new Vue({
+    el: '#app',
+    data : {
+      Hu:"",
+      H:"",
+      Iu:"",
+      Il:"",
+      jd:"",
+      b:"",
+      checkName:[]
+    },
+
+    computed: {
+
+      result:(
+              {
+                Hu,
+                H,
+                Iu,
+                Il,
+                jd,
+                b,
+                checkName
+              }
+      )=>{
+        const v = new Number(Hu/H);
+        const n = new Number(Iu/Il);
+        const  keyOfFormula = Object.keys(formula);
+
+
+
+
+        return (checkName||[]).filter(id=>keyOfFormula.includes(id))
+                .map(id=>(
+                {
+                  id: id,
+                  C: +formula[id](v, n, +jd, +b).toFixed(4),
+                  R: 0
+                }
+
+        ));
+
+
+
+      }
+
+    }
+
+    // watch:{
+    //   //watch中写的还是函数，不需要条用 watch可以监听到data中值的变化。
+    //   msg(newValue,oldValue){
+    //     console.log("msg被改变")
+    //     if(typeof newValue === 'number'){
+    //       console.log('设置的值是数字')
+    //     }else{
+    //       console.log('设置的值不是数字')
+    //       this.msg = oldValue
+    //     },
+    //     // 监听Text
+    //     text:{
+    //       handler () {
+    //         // 执行需要的操作...
+    //         let text = this.text + 3
+    //         console.log(text)
+    //
+    //       },
+    //       //可以监听到对象中属性的变化
+    //       //deep：true,
+    //       immediate: true // true: 初始化时就会先执行一遍该监听对应的操作
+    //     },
+    //
+    //     methods: {
+    //       handleClick () {
+    //         this.msg = 'hello1'
+    //       },
+    //       getText2() {
+    //         let text = this.text + 2
+    //         console.log(text)
+    //       }
+    //     }
+     })
+</script>
+
+
+</body>
+</html>

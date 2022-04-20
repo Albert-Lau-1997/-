@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "amazeui": "^1.0.2",
+    "vue": "^3.2.31"
+  }
+}
